@@ -80,6 +80,21 @@ function App() {
   return (
     <div className="app">
       <ThemeToggle />
+      <aside className="app-sidebar">
+        <div className="sidebar-header">
+          <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+            TaskFlow
+          </h2>
+        </div>
+        <nav className="sidebar-nav">
+          {/* ... existing nav items ... */}
+        </nav>
+      </aside>
       <header className="app-header">
         <h1>Notes App</h1>
       </header>
@@ -92,7 +107,7 @@ function App() {
           onDeleteNote={handleDeleteNote}
         />
       </main>
-      </div>
+    </div>
   )
 }
 
