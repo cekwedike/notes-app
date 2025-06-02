@@ -1,6 +1,10 @@
 import type { Note as NoteType } from '../types/Note';
 import { useState, useEffect } from 'react';
 import { ConfirmDialog } from './ConfirmDialog';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
 interface NoteProps {
   note: NoteType;
@@ -99,7 +103,14 @@ export const Note = ({ note, onUpdate, onDelete }: NoteProps) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <h3 className="note-title">{note.title}</h3>
-        <p className="note-content">{note.content}</p>
+        <div className="note-content markdown-body">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw, rehypeSanitize]}
+          >
+            {note.content}
+          </ReactMarkdown>
+        </div>
         <div className="note-meta">
           <div className="meta-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
