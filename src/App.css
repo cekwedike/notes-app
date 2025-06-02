@@ -228,3 +228,48 @@
     color: #cccccc;
   }
 }
+
+.notes-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  flex: 1;
+  min-width: 200px;
+}
+
+.sort-container {
+  min-width: 150px;
+}
+
+.search-input,
+.sort-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: var(--note-background);
+  color: inherit;
+}
+
+.search-input:focus,
+.sort-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .search-input,
+  .sort-select {
+    background-color: #3d3d3d;
+    border-color: #4d4d4d;
+  }
+  
+  .search-input::placeholder {
+    color: #999999;
+  }
+}
