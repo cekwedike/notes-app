@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import { NoteForm } from './components/NoteForm'
+import { NotesList } from './components/NotesList'
+import type { Note } from './types/Note'
+import { getNotes, addNote, updateNote, deleteNote } from './utils/storage'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [notes, setNotes] = useState<Note[]>([])
+
+  useEffect(() => {
+    setNotes(getNotes())
+  }, [])
+
+  const handleAddNote = (noteData: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) => {
+    const newNote: Note = {
+      ...noteData,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+    addNote(newNote)
+    setNotes(getNotes())
+  }
+
+  const handleUpdateNote = (updatedNote: Note) => {
+    updateNote(updatedNote)
+    setNotes(getNotes())
+  }
+
+  const handleDeleteNote = (id: string) => {
+    deleteNote(id)
+    setNotes(getNotes())
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app">
+      <header className="app-header">
+        <h1>Notes App</h1>
+      </header>
+      <main className="app-main">
+        <NoteForm onSubmit={handleAddNote} />
+        <NotesList
+          notes={notes}
+          onUpdateNote={handleUpdateNote}
+          onDeleteNote={handleDeleteNote}
+        />
+      </main>
+    </div>
   )
 }
 
