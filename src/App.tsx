@@ -1,16 +1,51 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { NoteForm } from './components/NoteForm'
 import { NotesList } from './components/NotesList'
+import { NotesFilter } from './components/NotesFilter'
 import type { Note } from './types/Note'
 import { getNotes, addNote, updateNote, deleteNote } from './utils/storage'
 import './App.css'
 
+type SortOption = 'newest' | 'oldest' | 'title-asc' | 'title-desc'
+
 function App() {
   const [notes, setNotes] = useState<Note[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sortOption, setSortOption] = useState<SortOption>('newest')
 
   useEffect(() => {
     setNotes(getNotes())
   }, [])
+
+  const filteredAndSortedNotes = useMemo(() => {
+    let filtered = notes
+    
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      filtered = notes.filter(
+        note =>
+          note.title.toLowerCase().includes(query) ||
+          note.content.toLowerCase().includes(query)
+      )
+    }
+    
+    // Apply sorting
+    return [...filtered].sort((a, b) => {
+      switch (sortOption) {
+        case 'newest':
+          return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        case 'oldest':
+          return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+        case 'title-asc':
+          return a.title.localeCompare(b.title)
+        case 'title-desc':
+          return b.title.localeCompare(a.title)
+        default:
+          return 0
+      }
+    })
+  }, [notes, searchQuery, sortOption])
 
   const handleAddNote = (noteData: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) => {
     const newNote: Note = {
@@ -33,6 +68,14 @@ function App() {
     setNotes(getNotes())
   }
 
+  const handleSearch = (query: string) => {
+    setSearchQuery(query)
+  }
+
+  const handleSort = (option: SortOption) => {
+    setSortOption(option)
+  }
+
   return (
     <div className="app">
       <header className="app-header">
@@ -40,8 +83,9 @@ function App() {
       </header>
       <main className="app-main">
         <NoteForm onSubmit={handleAddNote} />
+        <NotesFilter onSearch={handleSearch} onSort={handleSort} />
         <NotesList
-          notes={notes}
+          notes={filteredAndSortedNotes}
           onUpdateNote={handleUpdateNote}
           onDeleteNote={handleDeleteNote}
         />
