@@ -396,3 +396,220 @@
 .animate-pulse {
   animation: pulse 2s infinite;
 }
+
+/* Form styles */
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-header svg {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary-color);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.form-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 2rem;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.form-hint svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Meta item styles */
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.meta-item svg {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.8;
+}
+
+/* Note form specific styles */
+.note-form {
+  margin-bottom: 2.5rem;
+}
+
+.note-form .input {
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-normal);
+}
+
+.note-form .input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.note-form textarea.input {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.note-form.focused {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-light);
+}
+
+/* Note editing styles */
+.note.editing {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  animation: scaleIn 0.3s ease-out;
+}
+
+.note.editing .input {
+  margin-bottom: 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.note.editing textarea.input {
+  min-height: 150px;
+  margin-bottom: 1.5rem;
+}
+
+.note.editing .note-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.note.editing .btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.note.editing .btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Search and filter styles */
+.notes-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.search-container {
+  flex: 1;
+  position: relative;
+}
+
+.search-container svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  transition: var(--transition-normal);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.sort-container {
+  min-width: 200px;
+}
+
+.sort-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+@media (max-width: 640px) {
+  .notes-filter {
+    flex-direction: column;
+  }
+  
+  .sort-container {
+    width: 100%;
+  }
+}
