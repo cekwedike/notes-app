@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { NoteForm } from './components/NoteForm'
 import { NotesList } from './components/NotesList'
 import { NotesFilter } from './components/NotesFilter'
+import { ThemeToggle } from './components/ThemeToggle'
 import type { Note } from './types/Note'
 import { getNotes, addNote, updateNote, deleteNote } from './utils/storage'
 import './App.css'
@@ -78,6 +79,7 @@ function App() {
 
   return (
     <div className="app">
+      <ThemeToggle />
       <header className="app-header">
         <h1>Notes App</h1>
       </header>
