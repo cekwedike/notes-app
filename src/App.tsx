@@ -92,7 +92,7 @@ function App() {
           onDeleteNote={handleDeleteNote}
         />
       </main>
-    </div>
+      </div>
   )
 }
 
