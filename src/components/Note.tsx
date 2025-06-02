@@ -1,5 +1,5 @@
 import type { Note as NoteType } from '../types/Note';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ConfirmDialog } from './ConfirmDialog';
 
 interface NoteProps {
@@ -13,8 +13,17 @@ export const Note = ({ note, onUpdate, onDelete }: NoteProps) => {
   const [editedTitle, setEditedTitle] = useState(note.title);
   const [editedContent, setEditedContent] = useState(note.content);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Reset form when note changes
+  useEffect(() => {
+    setEditedTitle(note.title);
+    setEditedContent(note.content);
+  }, [note]);
 
   const handleSave = () => {
+    if (!editedTitle.trim() || !editedContent.trim()) return;
+    
     onUpdate({
       ...note,
       title: editedTitle,
@@ -28,15 +37,27 @@ export const Note = ({ note, onUpdate, onDelete }: NoteProps) => {
     setShowDeleteConfirm(true);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      handleSave();
+    } else if (e.key === 'Escape') {
+      setIsEditing(false);
+    }
+  };
+
   if (isEditing) {
     return (
-      <div className="note editing">
+      <div 
+        className="note editing animate-scale-in"
+        onKeyDown={handleKeyDown}
+      >
         <input
           type="text"
           value={editedTitle}
           onChange={(e) => setEditedTitle(e.target.value)}
           placeholder="Title"
           className="note-title-input"
+          autoFocus
         />
         <textarea
           value={editedContent}
@@ -45,8 +66,16 @@ export const Note = ({ note, onUpdate, onDelete }: NoteProps) => {
           className="note-content-input"
         />
         <div className="note-actions">
-          <button onClick={handleSave} className="save-btn">Save</button>
-          <button onClick={() => setIsEditing(false)} className="cancel-btn">Cancel</button>
+          <button 
+            onClick={handleSave} 
+            className="save-btn"
+            disabled={!editedTitle.trim() || !editedContent.trim()}
+          >
+            Save (⌘/Ctrl + Enter)
+          </button>
+          <button onClick={() => setIsEditing(false)} className="cancel-btn">
+            Cancel (Esc)
+          </button>
         </div>
       </div>
     );
@@ -54,7 +83,11 @@ export const Note = ({ note, onUpdate, onDelete }: NoteProps) => {
 
   return (
     <>
-      <div className="note">
+      <div 
+        className={`note ${isHovered ? 'hovered' : ''}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <h3 className="note-title">{note.title}</h3>
         <p className="note-content">{note.content}</p>
         <div className="note-meta">
@@ -62,8 +95,20 @@ export const Note = ({ note, onUpdate, onDelete }: NoteProps) => {
           <small>Updated: {new Date(note.updatedAt).toLocaleString()}</small>
         </div>
         <div className="note-actions">
-          <button onClick={() => setIsEditing(true)} className="edit-btn">Edit</button>
-          <button onClick={handleDeleteClick} className="delete-btn">Delete</button>
+          <button 
+            onClick={() => setIsEditing(true)} 
+            className="edit-btn"
+            title="Edit note"
+          >
+            Edit
+          </button>
+          <button 
+            onClick={handleDeleteClick} 
+            className="delete-btn"
+            title="Delete note"
+          >
+            Delete
+          </button>
         </div>
       </div>
       <ConfirmDialog
