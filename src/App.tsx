@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { NoteForm } from './components/NoteForm'
 import { NotesList } from './components/NotesList'
 import { NotesFilter } from './components/NotesFilter'
@@ -86,13 +87,21 @@ function App() {
         <h1>Notes App</h1>
       </header>
       <main className="app-main">
-        <NoteForm onSubmit={handleAddNote} />
-        <NotesFilter onSearch={handleSearch} onSort={handleSort} />
-        <NotesList
-          notes={filteredAndSortedNotes}
-          onUpdateNote={handleUpdateNote}
-          onDeleteNote={handleDeleteNote}
-        />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <NoteForm onSubmit={handleAddNote} />
+              <NotesFilter onSearch={handleSearch} onSort={handleSort} />
+              <NotesList
+                notes={filteredAndSortedNotes}
+                onUpdateNote={handleUpdateNote}
+                onDeleteNote={handleDeleteNote}
+              />
+            </>
+          } />
+          <Route path="/pomodoro" element={<div>Pomodoro Timer Coming Soon</div>} />
+          <Route path="/matrix" element={<div>Eisenhower Matrix Coming Soon</div>} />
+        </Routes>
       </main>
     </div>
   )
