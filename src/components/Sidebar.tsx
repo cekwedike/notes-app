@@ -43,7 +43,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <>
+    <aside className={`app-sidebar ${isOpen ? 'open' : ''}`}>
       <button 
         className="menu-toggle"
         onClick={() => setIsOpen(!isOpen)}
@@ -63,44 +63,42 @@ export const Sidebar = () => {
         )}
       </button>
 
-      <aside className={`app-sidebar ${isOpen ? 'open' : ''}`}>
-        <div className="sidebar-header">
-          <h2>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-            TaskFlow
-          </h2>
-        </div>
+      <div className="sidebar-header">
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          TaskFlow
+        </h2>
+      </div>
 
-        <nav className="sidebar-nav">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
-            >
-              {item.icon}
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+      <nav className="sidebar-nav">
+        {navItems.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+          >
+            {item.icon}
+            {item.label}
+          </Link>
+        ))}
+      </nav>
 
-        <div className="sidebar-footer">
-          <div className="sidebar-stats">
-            <div className="stat-item">
-              <span className="stat-label">Notes</span>
-              <span className="stat-value">12</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-label">Focus Time</span>
-              <span className="stat-value">2h 30m</span>
-            </div>
+      <div className="sidebar-footer">
+        <div className="sidebar-stats">
+          <div className="stat-item">
+            <span className="stat-label">Notes</span>
+            <span className="stat-value">12</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Focus Time</span>
+            <span className="stat-value">2h 30m</span>
           </div>
         </div>
-      </aside>
-    </>
+      </div>
+    </aside>
   );
 }; 
