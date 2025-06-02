@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export type SortOption = 'newest' | 'oldest' | 'title';
+export type SortOption = 'newest' | 'oldest' | 'title-asc' | 'title-desc';
 
 interface NotesFilterProps {
   searchQuery: string;
@@ -36,7 +36,8 @@ export const NotesFilter = ({
         >
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
-          <option value="title">By Title</option>
+          <option value="title-asc">Title (A-Z)</option>
+          <option value="title-desc">Title (Z-A)</option>
         </select>
       </div>
     </div>
