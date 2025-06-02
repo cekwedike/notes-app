@@ -295,19 +295,31 @@
   border-color: var(--primary-light);
 }
 
+.note-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
 .note-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-color);
-  margin-bottom: 1.25rem;
+  margin: 0;
   line-height: 1.4;
 }
 
 .note-content {
   color: var(--text-muted);
   line-height: 1.7;
-  margin-bottom: 2rem;
   flex-grow: 1;
+  font-size: 1.1rem;
+}
+
+.note-content.markdown-body {
+  color: var(--text-muted);
+  line-height: 1.7;
   font-size: 1.1rem;
 }
 
@@ -317,20 +329,33 @@
   gap: 0.75rem;
   font-size: 0.875rem;
   color: var(--text-muted);
-  margin-bottom: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--glass-border);
 }
 
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.meta-item svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+}
+
 .note-actions {
   display: flex;
-  gap: 1.25rem;
-  margin-top: auto;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
 }
 
 .note-actions button {
   flex: 1;
-  padding: 1rem;
+  padding: 0.875rem;
   border-radius: var(--border-radius);
   font-weight: 500;
   transition: var(--transition-normal);
@@ -339,6 +364,7 @@
   justify-content: center;
   gap: 0.75rem;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .edit-btn {
@@ -351,6 +377,8 @@
   background: var(--primary-color);
   color: white;
   border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .delete-btn {
@@ -363,6 +391,36 @@
   background: var(--danger-color);
   color: white;
   border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.note.editing {
+  background: var(--card-bg);
+  border-color: var(--primary-light);
+}
+
+.note-title-input,
+.note-content-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 0.875rem 1rem;
+  font-size: 1.1rem;
+  transition: var(--transition-normal);
+}
+
+.note-title-input {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.note-title-input:focus,
+.note-content-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .menu-toggle {
@@ -489,21 +547,28 @@
   
   .note-actions {
     flex-direction: column;
+    gap: 0.75rem;
   }
   
   .note-title {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
   }
   
   .note-content {
     font-size: 1rem;
-    margin-bottom: 1.5rem;
   }
   
   .note-meta {
-    margin-bottom: 1.5rem;
     padding-top: 1rem;
+  }
+  
+  .note-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+  
+  .note-actions button {
+    padding: 0.75rem;
   }
 
   .confirm-dialog {
